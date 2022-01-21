@@ -17,7 +17,15 @@ public class TicketDAO {
 
     private static final Logger logger = LogManager.getLogger("TicketDAO");
 
-    public DataBaseConfig dataBaseConfig = new DataBaseConfig();
+    private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+
+    public DataBaseConfig getDataBaseConfig() {
+        return dataBaseConfig;
+    }
+
+    public void setDataBaseConfig(DataBaseConfig dataBaseConfig) {
+        this.dataBaseConfig = dataBaseConfig;
+    }
 
     public boolean saveTicket(Ticket ticket){
         Connection con = null;
