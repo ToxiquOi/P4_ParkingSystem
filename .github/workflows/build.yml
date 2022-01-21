@@ -17,13 +17,10 @@ jobs:
         image: mysql:8.0.27
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: prod
           MYSQL_USER: admin
           MYSQL_PASSWORD: admin
         ports:
           - "3306:3306"
-        volumes:
-          - ./dump.sql:../resources/Data.sql
 
     steps:
       - uses: actions/checkout@v2
@@ -49,4 +46,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ToxiquOi_P4_ParkingSystem
+        run: |
+          sudo apt-get update
+          sudo apt-get install mysql-client-core-8.0 -y
+          mysql --host 127.0.0.1 -uroot -proot < resources/Data.sql
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ToxiquOi_P4_ParkingSystem
