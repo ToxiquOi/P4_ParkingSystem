@@ -12,6 +12,19 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    services:
+      db:
+        image: mysql:8.0.27
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: prod
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: admin
+        ports:
+          - "3306:3306"
+        volumes:
+          - ./dump.sql:../resources/Data.sql
+
     steps:
       - uses: actions/checkout@v2
         with:
