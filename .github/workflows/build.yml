@@ -17,7 +17,7 @@ jobs:
       db:
         image: mysql:8.0.27
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: $BDD_TOKEN
           MYSQL_USER: admin
           MYSQL_PASSWORD: admin
         ports:
@@ -47,9 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          BDD_TOKEN: ${{ secrets.BDD_TOKEN }}
         run: |
-          sudo apt-get update
-          sudo apt-get install mysql-client-core-8.0 -y
-          mysql --host 127.0.0.1 -uroot -proot < resources/Data.sql
-          mvn test
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ToxiquOi_P4_ParkingSystem -Dsonar.login=$SONAR_TOKEN
+          mysql --host 127.0.0.1 -uroot -p$BDD_TOKEN < resources/Data.sql
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ToxiquOi_P4_ParkingSystem
