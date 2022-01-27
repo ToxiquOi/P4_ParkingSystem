@@ -52,4 +52,4 @@ jobs:
           sudo apt-get install mysql-client-core-8.0 -y
           mysql --host 127.0.0.1 -uroot -proot < resources/Data.sql
           mvn test
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ToxiquOi_P4_ParkingSystem
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ToxiquOi_P4_ParkingSystem -Dsonar.login=$SONAR_TOKEN
