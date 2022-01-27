@@ -21,6 +21,10 @@ public class FareCalculatorService {
         double milliDuration = outHour - inHour;
         double hoursDuration = ((milliDuration /1000) / 60) / 60;
 
+        // 30min reduction
+        double hoursWithRemise = (hoursDuration > 0.5)? hoursDuration - 0.5 : 0;
+
+        System.out.println(hoursWithRemise);
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
                 ticket.setPrice( hoursDuration * Fare.CAR_RATE_PER_HOUR);
