@@ -8,6 +8,17 @@ import java.sql.*;
 public class DataBaseConfig {
 
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
+    private static DataBaseConfig INSTANCE = null;
+
+    public static DataBaseConfig getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new DataBaseConfig();
+        }
+
+        return INSTANCE;
+    }
+
+    protected DataBaseConfig() {}
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");

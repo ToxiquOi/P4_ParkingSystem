@@ -17,7 +17,7 @@ public class TicketDAO {
 
     private static final Logger logger = LogManager.getLogger("TicketDAO");
 
-    private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+    private DataBaseConfig dataBaseConfig = DataBaseConfig.getInstance();
 
     public DataBaseConfig getDataBaseConfig() {
         return dataBaseConfig;
@@ -94,7 +94,8 @@ public class TicketDAO {
             ps.setDouble(1, ticket.getPrice());
             ps.setTimestamp(2, new Timestamp(ticket.getOutTime().getTime()));
             ps.setInt(3,ticket.getId());
-            result = ps.execute();
+            ps.execute();
+            result = true;
         }catch (Exception ex){
             logger.error("Error saving ticket info",ex);
         }finally {
