@@ -12,4 +12,5 @@ public class DBConstants {
     public static final String GET_TICKET = "select t.PARKING_NUMBER, t.ID, t.PRICE, t.IN_TIME, t.OUT_TIME, p.TYPE from ticket t,parking p where p.parking_number = t.parking_number and t.VEHICLE_REG_NUMBER=? order by t.IN_TIME  limit 1";
 
     public static final String SAVE_VEHICLE_IF_NOT_EXIST = "insert into vehicles(REG_NUMBER, FIRST_USE) values(?, true) on duplicate key update FIRST_USE=false";
+    public static final String VEHICLE_EXIST = "select count(1) from vehicles where REG_NUMBER=? and FIRST_USE=false";
 }

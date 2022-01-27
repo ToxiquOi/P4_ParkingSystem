@@ -16,24 +16,18 @@ public class ParkingService {
 
     private static final Logger logger = LogManager.getLogger("ParkingService");
 
-    private static FareCalculatorService fareCalculatorService = new FareCalculatorService();
-
     private InputReaderUtil inputReaderUtil;
     private ParkingSpotDAO parkingSpotDAO;
     private  TicketDAO ticketDAO;
     private VehicleDAO vehicleDAO;
-
-    public ParkingService(InputReaderUtil inputReaderUtil, ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO){
-        this.inputReaderUtil = inputReaderUtil;
-        this.parkingSpotDAO = parkingSpotDAO;
-        this.ticketDAO = ticketDAO;
-    }
+    private FareCalculatorService fareCalculatorService;
 
     public ParkingService(InputReaderUtil inputReaderUtil, ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO, VehicleDAO vehicleDAO) {
         this.inputReaderUtil = inputReaderUtil;
         this.parkingSpotDAO = parkingSpotDAO;
         this.ticketDAO = ticketDAO;
         this.vehicleDAO = vehicleDAO;
+        fareCalculatorService = new FareCalculatorService(vehicleDAO);
     }
 
     public void processIncomingVehicle() {

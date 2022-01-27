@@ -6,7 +6,11 @@ import com.parkit.parkingsystem.model.Ticket;
 
 public class FareCalculatorService {
 
-    VehicleDAO vehicleDao = new VehicleDAO();
+    private VehicleDAO vehicleDao;
+
+    public FareCalculatorService(VehicleDAO vehicleDao) {
+        this.vehicleDao = vehicleDao;
+    }
 
     public void calculateFare(Ticket ticket){
         if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
@@ -25,14 +29,22 @@ public class FareCalculatorService {
         System.out.println(hoursWithRemise);
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
-                ticket.setPrice( hoursWithRemise * Fare.CAR_RATE_PER_HOUR);
+                ticket.setPrice(calcRemise(hoursWithRemise * Fare.CAR_RATE_PER_HOUR, ticket.getVehicleRegNumber()));
                 break;
             }
             case BIKE: {
-                ticket.setPrice( hoursWithRemise * Fare.BIKE_RATE_PER_HOUR);
+                ticket.setPrice(calcRemise(hoursWithRemise * Fare.BIKE_RATE_PER_HOUR, ticket.getVehicleRegNumber()));
                 break;
             }
             default: throw new IllegalArgumentException("Unkown Parking Type");
         }
+    }
+
+    private double calcRemise(double price, String vehicleRegNumber) {
+        double remise = 0;
+        if(!vehicleDao.isFirstUseOfParking(vehicleRegNumber)) {
+            remise = (price / 100) * 5;
+        }
+        return price - remise;
     }
 }
