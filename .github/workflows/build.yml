@@ -49,8 +49,4 @@ jobs:
         run: |
           mysql --host 127.0.0.1 -uroot -proot < resources/Data.sql
           mvn test
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
