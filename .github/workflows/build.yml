@@ -49,5 +49,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mysql --host 127.0.0.1 -uroot -proot < resources/Data.sql
-          mvn test
           mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
