@@ -46,7 +46,7 @@ public class FareCalculatorService {
     private double calcRemise(double price, String vehicleRegNumber) {
         double remise = 0;
         if(price > 0.0 && ticketDAO.countTicketContainingRegNumber(vehicleRegNumber) > 2) {
-            logger.info("Your a regular user, we offer to you 5 percent reduction on the total cost of your ticket");
+            System.out.println("Your a regular user, we offer to you 5 percent reduction on the total cost of your ticket");
             remise = (price / 100) * 5;
         }
         return price - remise;

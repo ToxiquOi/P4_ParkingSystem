@@ -46,7 +46,6 @@ public class ParkingDataBaseIT {
 
     @AfterAll
     private static void tearDown() {
-
     }
 
     @Test
@@ -68,8 +67,8 @@ public class ParkingDataBaseIT {
 
     @Test
     public void testParkingLotExit() throws SQLException, ClassNotFoundException {
-        testParkingACar();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+        parkingService.processIncomingVehicle();
         parkingService.processExitingVehicle();
         int rsResult = 1;
 
