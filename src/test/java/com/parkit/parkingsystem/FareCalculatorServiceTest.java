@@ -2,7 +2,7 @@ package com.parkit.parkingsystem;
 
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.constants.ParkingType;
-import com.parkit.parkingsystem.dao.VehicleDAO;
+import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
@@ -18,14 +18,15 @@ import java.util.Date;
 public class FareCalculatorServiceTest {
 
     private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
-    private static VehicleDAO vehicleDAO;
+    private static TicketDAO ticketDAO;
     private static FareCalculatorService fareCalculatorService;
     private Ticket ticket;
 
     @BeforeAll
     private static void setUp() {
-        vehicleDAO = new VehicleDAO();
-        fareCalculatorService = new FareCalculatorService(vehicleDAO);
+        ticketDAO = new TicketDAO();
+        ticketDAO.setDataBaseConfig(dataBaseTestConfig);
+        fareCalculatorService = new FareCalculatorService(ticketDAO);
     }
 
     @BeforeEach
