@@ -49,4 +49,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mysql --host 127.0.0.1 -uroot -proot < resources/Data.sql
-          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ToxiquOi_P4_ParkingSystem -Dsonar.organization=toxiquoi
