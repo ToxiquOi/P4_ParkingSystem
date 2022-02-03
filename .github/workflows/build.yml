@@ -2,10 +2,6 @@ name: Build
 on:
   push:
     branches:
-      - develop
-      - bugfix/*
-      - release/*
-      - feature/*
       - master
   pull_request:
     types: [opened, synchronize, reopened]
