@@ -58,6 +58,7 @@ public class ParkingSpotDAO {
             ps = con.prepareStatement(DBConstants.UPDATE_PARKING_SPOT);
             ps.setBoolean(1, parkingSpot.isAvailable());
             ps.setInt(2, parkingSpot.getId());
+            ps.setString(3, parkingSpot.getParkingType().toString());
             int updateRowCount = ps.executeUpdate();
             return (updateRowCount == 1);
         } catch (Exception ex){
