@@ -16,8 +16,8 @@ public class FareCalculatorService {
         this.ticketDAO = ticketDAO;
     }
 
-    public void calculateFare(Ticket ticket){
-        if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
+    public void calculateFare(Ticket ticket) {
+        if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
             throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
         }
 
@@ -25,27 +25,30 @@ public class FareCalculatorService {
         double outHour = ticket.getOutTime().getTime();
 
         double milliDuration = outHour - inHour;
-        double hoursDuration = ((milliDuration /1000) / 60) / 60;
+        double hoursDuration = ((milliDuration / 1000) / 60) / 60;
 
         // 30min reduction
-        double hoursWithRemise = (hoursDuration > 0.5)? hoursDuration - 0.5 : 0;
+        double hoursWithRemise = (hoursDuration > 0.5) ? hoursDuration - 0.5 : 0;
 
-        switch (ticket.getParkingSpot().getParkingType()){
+        switch (ticket.getParkingSpot().getParkingType()) {
             case CAR: {
-                ticket.setPrice(calcRemise(hoursWithRemise * Fare.CAR_RATE_PER_HOUR, ticket.getVehicleRegNumber()));
+                double price = hoursWithRemise * Fare.CAR_RATE_PER_HOUR;
+                ticket.setPrice(calcRemise(price, ticket.getVehicleRegNumber()));
                 break;
             }
             case BIKE: {
-                ticket.setPrice(calcRemise(hoursWithRemise * Fare.BIKE_RATE_PER_HOUR, ticket.getVehicleRegNumber()));
+                double price = hoursWithRemise * Fare.BIKE_RATE_PER_HOUR;
+                ticket.setPrice(calcRemise(price, ticket.getVehicleRegNumber()));
                 break;
             }
-            default: throw new IllegalArgumentException("Unkown Parking Type");
+            default:
+                throw new IllegalArgumentException("Unkown Parking Type");
         }
     }
 
     private double calcRemise(double price, String vehicleRegNumber) {
         double remise = 0;
-        if(price > 0.0 && ticketDAO.countTicketContainingRegNumber(vehicleRegNumber) > 2) {
+        if (price > 0.0 && ticketDAO.countTicketContainingRegNumber(vehicleRegNumber) > 2) {
             System.out.println("Your a regular user, we offer to you 5 percent reduction on the total cost of your ticket");
             remise = (price / 100) * 5;
         }
