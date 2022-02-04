@@ -3,12 +3,10 @@ package com.parkit.parkingsystem;
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.TicketDAO;
-import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 
 import com.parkit.parkingsystem.service.FareCalculatorService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class FareCalculatorServiceTest {
+class FareCalculatorServiceTest {
 
 
     private static FareCalculatorService fareCalculatorService;
@@ -41,7 +39,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareCar() {
+    void calculateFareCar() {
         when(ticketDAO.countTicketContainingRegNumber(any(String.class))).thenReturn(1);
 
         Date inTime = new Date();
@@ -57,7 +55,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareBike() {
+    void calculateFareBike() {
         when(ticketDAO.countTicketContainingRegNumber(any(String.class))).thenReturn(1);
 
         Date inTime = new Date();
@@ -76,7 +74,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareUnkownType() {
+    void calculateFareUnkownType() {
         Date inTime = new Date();
         inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
         Date outTime = new Date();
@@ -89,7 +87,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareBikeWithFutureInTime() {
+    void calculateFareBikeWithFutureInTime() {
         Date inTime = new Date();
         inTime.setTime(System.currentTimeMillis() + (60 * 60 * 1000));
         Date outTime = new Date();
@@ -102,7 +100,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareBikeWithLessThanOneHourParkingTime() {
+    void calculateFareBikeWithLessThanOneHourParkingTime() {
         when(ticketDAO.countTicketContainingRegNumber(any(String.class))).thenReturn(1);
 
         Date inTime = new Date();
@@ -120,7 +118,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareCarWithLessThanOneHourParkingTime() {
+    void calculateFareCarWithLessThanOneHourParkingTime() {
         when(ticketDAO.countTicketContainingRegNumber(any(String.class))).thenReturn(1);
 
         Date inTime = new Date();
@@ -138,7 +136,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareCarWithMoreThanADayParkingTime() {
+    void calculateFareCarWithMoreThanADayParkingTime() {
         when(ticketDAO.countTicketContainingRegNumber(any(String.class))).thenReturn(1);
 
         Date inTime = new Date();
@@ -156,7 +154,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareWithThirtyMinuteParkingTime() {
+    void calculateFareWithThirtyMinuteParkingTime() {
         Date inTime = new Date();
         inTime.setTime(System.currentTimeMillis() - (30 * 60 * 1000));//30 minutes parking time should give free parking fare
         Date outTime = new Date();
@@ -171,7 +169,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareWithLessThanThirtyMinuteParkingTime() {
+    void calculateFareWithLessThanThirtyMinuteParkingTime() {
         Date inTime = new Date();
         inTime.setTime(System.currentTimeMillis() - (15 * 60 * 1000));//15 minutes parking time should give free parking fare
         Date outTime = new Date();
@@ -186,7 +184,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareWithFivePercentRemiseOnOneHour() {
+    void calculateFareWithFivePercentRemiseOnOneHour() {
         when(ticketDAO.countTicketContainingRegNumber(any(String.class))).thenReturn(3);
 
         Date inTime = new Date();
@@ -199,8 +197,23 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
+        // Five percent remise
         double remisedPrice = (0.5 * Fare.CAR_RATE_PER_HOUR) - ((0.5 * Fare.CAR_RATE_PER_HOUR) / 100) * 5;
 
         assertEquals(remisedPrice, ticket.getPrice());
+    }
+
+    @Test
+    void calculateFareWithUndefinedParkingSpot() {
+        Date inTime = new Date();
+        inTime.setTime(System.currentTimeMillis() - (15 * 60 * 1000));//15 minutes parking time should give free parking fare
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.UNKNOWN, false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+
+        assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket));
     }
 }
