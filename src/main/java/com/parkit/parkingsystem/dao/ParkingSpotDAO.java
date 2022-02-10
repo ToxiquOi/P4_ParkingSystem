@@ -68,7 +68,6 @@ public class ParkingSpotDAO {
 
         try {
             con = dataBaseConfig.getConnection();
-            ;
             ps = con.prepareStatement(DBConstants.UPDATE_PARKING_SPOT);
             ps.setBoolean(1, parkingSpot.isAvailable());
             ps.setInt(2, parkingSpot.getId());

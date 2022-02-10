@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Date;
 
 @ExtendWith(MockitoExtension.class)
-public class TicketDaoTest {
+class TicketDaoTest {
 
     private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
     private static TicketDAO ticketDAO;
