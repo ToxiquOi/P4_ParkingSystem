@@ -58,7 +58,7 @@ public class ParkingDataBaseIT {
                 .prepareStatement("select count(1) from parking where AVAILABLE=0")
                 .executeQuery();
 
-        if(rs.next()) {
+        if (rs.next()) {
             rsResult = rs.getInt(1);
         }
 
@@ -77,7 +77,7 @@ public class ParkingDataBaseIT {
                 .prepareStatement("select count(1) from parking where AVAILABLE=0")
                 .executeQuery();
 
-        if(rs.next()) {
+        if (rs.next()) {
             rsResult = rs.getInt(1);
         }
 

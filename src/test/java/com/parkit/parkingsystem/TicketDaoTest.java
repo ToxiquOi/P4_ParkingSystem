@@ -30,9 +30,9 @@ public class TicketDaoTest {
 
     @BeforeEach
     private void setUpPerTest() {
-        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
         this.ticket = new Ticket();
-        ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
+        ticket.setInTime(new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
         ticket.setParkingSpot(parkingSpot);
         ticket.setVehicleRegNumber("ABCDEF");
     }
@@ -80,7 +80,7 @@ public class TicketDaoTest {
     @Test
     void testUpdateUnknownTicket() {
         Ticket ticket1 = new Ticket();
-        ticket1.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
+        ticket1.setInTime(new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
         ticket1.setOutTime(new Date(System.currentTimeMillis()));
         ticket1.setVehicleRegNumber("TOTO");
 
