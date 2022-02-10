@@ -10,15 +10,28 @@ public class InteractiveShell {
 
     private static final Logger logger = LogManager.getLogger("InteractiveShell");
 
-    public static void loadInterface() {
+    private InputReaderUtil inputReaderUtil;
+    private ParkingSpotDAO parkingSpotDAO;
+    private TicketDAO ticketDAO;
+    private ParkingService parkingService;
+
+    public InteractiveShell() {
+        inputReaderUtil = new InputReaderUtil();
+        parkingSpotDAO = new ParkingSpotDAO();
+        ticketDAO = new TicketDAO();
+        parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+    }
+
+    public InteractiveShell(InputReaderUtil inputReaderUtil, ParkingService parkingService) {
+        this.inputReaderUtil = inputReaderUtil;
+        this.parkingService = parkingService;
+    }
+
+    public void loadInterface() {
         logger.info("App initialized!!!");
         logger.info("Welcome to Parking System!");
 
         boolean continueApp = true;
-        InputReaderUtil inputReaderUtil = new InputReaderUtil();
-        ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();
-        TicketDAO ticketDAO = new TicketDAO();
-        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
         while (continueApp) {
             loadMenu();
