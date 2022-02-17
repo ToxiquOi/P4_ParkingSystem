@@ -100,8 +100,9 @@
                     </dependency>
                 </dependencies>
                 <configuration>
+                    <skipTests>false</skipTests>
                     <excludes>
-                        <exclude>**/*IT.java</exclude>
+                        <exclude>none</exclude>
                     </excludes>
                 </configuration>
                 <executions>
