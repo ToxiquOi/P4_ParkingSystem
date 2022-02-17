@@ -1,7 +1,9 @@
 /* Setting up PROD DB */
+drop database if exists prod;
 create database prod;
 use prod;
 
+drop table if exists parking;
 create table parking
 (
     PARKING_NUMBER int PRIMARY KEY,
@@ -9,6 +11,7 @@ create table parking
     TYPE           varchar(10) NOT NULL
 );
 
+drop table if exists ticket;
 create table ticket
 (
     ID                 int PRIMARY KEY AUTO_INCREMENT,
@@ -34,9 +37,11 @@ values (5, true, 'BIKE');
 commit;
 
 /* Setting up TEST DB */
+drop database if exists test;
 create database test;
 use test;
 
+drop table if exists parking;
 create table parking
 (
     PARKING_NUMBER int PRIMARY KEY,
@@ -44,6 +49,7 @@ create table parking
     TYPE           varchar(10) NOT NULL
 );
 
+drop table if exists ticket;
 create table ticket
 (
     ID                 int PRIMARY KEY AUTO_INCREMENT,

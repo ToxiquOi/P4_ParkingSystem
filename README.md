@@ -15,7 +15,7 @@ What things you need to install the software and how to install them
 
 - Java 1.8
 - Maven 3.6.2
-- Mysql 8.0.17
+- Docker/docker-compose
 
 ### Installing
 
@@ -29,27 +29,30 @@ https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.
 
 https://maven.apache.org/install.html
 
-3.Install MySql:
+3'.Install Docker:
 
-https://dev.mysql.com/downloads/mysql/
+https://docs.docker.com/desktop/windows/install/
 
-After downloading the mysql 8 installer and installing it, you will be asked to configure the password for the
-default `root` account. This code uses the default root account to connect and the password can be set as `rootroot`. If
-you add another user/credentials make sure to change the same in the code base.
 
 ### Running App
+Post installation of Docker, Java and Maven, you will have to set up the tables and data in the database.
 
-Post installation of MySQL, Java and Maven, you will have to set up the tables and data in the data base. For this,
-please run the sql commands present in the `Data.sql` file under the `resources` folder in the code base.
+All utils script are stored under the `docker` folder.
+
+* `start_service.bat`: Launch mysql and adminer (localhost:8080) containers
+* `install_database.bat`: To create the database.
 
 Finally, you will be ready to import the code into an IDE of your choice and run the App.java to launch the application.
 
 ### Testing
 
-The app has unit tests and integration tests written. More of these need to be added and in some places that can be seen
-mentioend as `TODO` comments. The existing tests need to be triggered from maven-surefire plugin while we try to
-generate the final executable jar file.
+The app has unit tests and integration tests written.
+All test are executed after each commit with `github Actions` feature.
+We can see all results in the `Actions` page on github.
 
-To run the tests from maven, go to the folder that contains the pom.xml file and execute the below command.
+Sonarcloud is used for create `Quality statistics` and archive them.
+all statistics are viewable on sonarcloud if you clic on the badge at start of this .md file
 
-`mvn test`
+Of course you can always use the standard maven command to start all tests.
+
+`mvn test` or `mvn verify`
