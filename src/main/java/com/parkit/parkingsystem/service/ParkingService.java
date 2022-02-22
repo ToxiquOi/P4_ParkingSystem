@@ -9,6 +9,7 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class ParkingService {
@@ -107,7 +108,9 @@ public class ParkingService {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();
                 parkingSpot.setAvailable(true);
                 parkingSpotDAO.updateParking(parkingSpot);
-                logger.info(String.format("Please pay the parking fare: %s", ticket.getPrice()));
+
+                DecimalFormat decimalFormat = new DecimalFormat("###.##");
+                logger.info(String.format("Please pay the parking fare: %s", decimalFormat.format(ticket.getPrice())));
                 logger.info(String.format("Recorded out-time for vehicle number: %s is: %s", ticket.getVehicleRegNumber(), outTime));
             } else {
                 logger.info("Unable to update ticket information. Error occurred");
