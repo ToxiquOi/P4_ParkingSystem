@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class TicketDAO {
 
@@ -72,8 +73,8 @@ public class TicketDAO {
                 ticket.setId(rs.getInt(2));
                 ticket.setVehicleRegNumber(vehicleRegNumber);
                 ticket.setPrice(rs.getDouble(3));
-                ticket.setInTime(rs.getDate(4));
-                ticket.setOutTime(rs.getDate(5));
+                ticket.setInTime(new Date(rs.getTimestamp(4).getTime()));
+                ticket.setOutTime((rs.getTimestamp(5) != null) ? new Date(rs.getTimestamp(5).getTime()) : null);
             }
         } catch (Exception ex) {
             logger.error("Error fetching next available slot", ex);
