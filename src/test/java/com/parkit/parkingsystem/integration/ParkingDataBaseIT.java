@@ -66,10 +66,19 @@ class ParkingDataBaseIT {
     }
 
     @Test
-    void testParkingLotExit() throws SQLException, ClassNotFoundException {
+    void testParkingLotExit() throws SQLException, ClassNotFoundException, InterruptedException {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
+        Thread.sleep(600);
         parkingService.processExitingVehicle();
+        parkingService.processIncomingVehicle();
+        Thread.sleep(600);
+        parkingService.processExitingVehicle();
+        parkingService.processIncomingVehicle();
+        Thread.sleep(600);
+        parkingService.processExitingVehicle();
+
+
         int rsResult = 1;
 
         ResultSet rs = dataBaseTestConfig
