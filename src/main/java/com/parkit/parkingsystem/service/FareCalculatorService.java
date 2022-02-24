@@ -10,7 +10,7 @@ public class FareCalculatorService {
 
     private static final Logger logger = LogManager.getLogger("FareCalculatorService");
 
-    private TicketDAO ticketDAO;
+    private final TicketDAO ticketDAO;
 
     public FareCalculatorService(TicketDAO ticketDAO) {
         this.ticketDAO = ticketDAO;

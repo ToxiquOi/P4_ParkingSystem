@@ -15,7 +15,7 @@ import java.util.Date;
 @ExtendWith(MockitoExtension.class)
 class TicketDaoTest {
 
-    private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+    private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
     private static TicketDAO ticketDAO;
     private static DataBasePrepareService dataBasePrepareService;
 
