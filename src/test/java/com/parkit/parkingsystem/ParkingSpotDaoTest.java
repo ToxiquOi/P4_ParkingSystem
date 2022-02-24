@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class ParkingSpotDaoTest {
 
-    private DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+    private final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
     private ParkingSpotDAO parkingSpotDAO;
     private DataBasePrepareService dataBasePrepareService;
 

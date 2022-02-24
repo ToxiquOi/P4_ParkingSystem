@@ -10,7 +10,7 @@ public class FareCalculatorService {
 
     private static final Logger logger = LogManager.getLogger("FareCalculatorService");
 
-    private TicketDAO ticketDAO;
+    private final TicketDAO ticketDAO;
 
     public FareCalculatorService(TicketDAO ticketDAO) {
         this.ticketDAO = ticketDAO;
@@ -48,9 +48,10 @@ public class FareCalculatorService {
 
     private double calcRemise(double price, String vehicleRegNumber) {
         double remise = 0;
-        if (price > 0.0 && ticketDAO.countTicketContainingRegNumber(vehicleRegNumber) > 2) {
+        if (ticketDAO.countTicketContainingRegNumber(vehicleRegNumber) > 2) {
             logger.info("Your a regular user, we offer to you 5 percent reduction on the total cost of your ticket");
-            remise = (price / 100) * 5;
+            if(price > 0.0)
+                remise = (price / 100) * 5;
         }
         return price - remise;
     }
