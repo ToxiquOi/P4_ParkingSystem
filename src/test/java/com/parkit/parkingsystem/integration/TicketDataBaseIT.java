@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class TicketDataBaseIT {
+class TicketDataBaseIT {
 
     private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
 
@@ -58,7 +58,7 @@ public class TicketDataBaseIT {
     }
 
     @Test
-    public void testTicketSavedWhenVehicleIncoming() throws SQLException, ClassNotFoundException {
+    void testTicketSavedWhenVehicleIncoming() throws SQLException, ClassNotFoundException {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
 
@@ -78,7 +78,7 @@ public class TicketDataBaseIT {
     }
 
     @Test
-    public void testTicketUpdatedWhenVehicleExiting() throws SQLException, ClassNotFoundException {
+    void testTicketUpdatedWhenVehicleExiting() throws SQLException, ClassNotFoundException {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         parkingService.processExitingVehicle();

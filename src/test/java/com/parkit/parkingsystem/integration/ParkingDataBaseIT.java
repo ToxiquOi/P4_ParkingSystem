@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ParkingDataBaseIT {
 
     private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
@@ -49,6 +50,7 @@ class ParkingDataBaseIT {
     }
 
     @Test
+    @Order(1)
     void testParkingACar() throws SQLException, ClassNotFoundException {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
@@ -66,16 +68,14 @@ class ParkingDataBaseIT {
     }
 
     @Test
-    void testParkingLotExit() throws SQLException, ClassNotFoundException, InterruptedException {
+    @Order(2)
+    void testParkingLotExit() throws SQLException, ClassNotFoundException {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
-        Thread.sleep(600);
         parkingService.processExitingVehicle();
         parkingService.processIncomingVehicle();
-        Thread.sleep(600);
         parkingService.processExitingVehicle();
         parkingService.processIncomingVehicle();
-        Thread.sleep(600);
         parkingService.processExitingVehicle();
 
 

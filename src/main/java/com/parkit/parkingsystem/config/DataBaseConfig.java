@@ -8,14 +8,14 @@ import java.sql.*;
 public class DataBaseConfig {
 
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
-    private static DataBaseConfig INSTANCE = null;
+    private static DataBaseConfig instance = null;
 
     public static DataBaseConfig getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new DataBaseConfig();
+        if (instance == null) {
+            instance = new DataBaseConfig();
         }
 
-        return INSTANCE;
+        return instance;
     }
 
     protected DataBaseConfig() {
