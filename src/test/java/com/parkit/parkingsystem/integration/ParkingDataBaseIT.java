@@ -17,9 +17,10 @@ import java.sql.SQLException;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ParkingDataBaseIT {
 
-    private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+    private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
     private static ParkingSpotDAO parkingSpotDAO;
     private static TicketDAO ticketDAO;
     private static DataBasePrepareService dataBasePrepareService;
@@ -38,7 +39,7 @@ class ParkingDataBaseIT {
     }
 
     @BeforeEach
-    private void setUpPerTest() throws Exception {
+    private void setUpPerTest() {
         when(inputReaderUtil.readSelection()).thenReturn(1);
         when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
     }
@@ -49,6 +50,7 @@ class ParkingDataBaseIT {
     }
 
     @Test
+    @Order(1)
     void testParkingACar() throws SQLException, ClassNotFoundException {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
@@ -66,10 +68,17 @@ class ParkingDataBaseIT {
     }
 
     @Test
+    @Order(2)
     void testParkingLotExit() throws SQLException, ClassNotFoundException {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         parkingService.processExitingVehicle();
+        parkingService.processIncomingVehicle();
+        parkingService.processExitingVehicle();
+        parkingService.processIncomingVehicle();
+        parkingService.processExitingVehicle();
+
+
         int rsResult = 1;
 
         ResultSet rs = dataBaseTestConfig

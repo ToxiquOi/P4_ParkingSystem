@@ -10,10 +10,10 @@ public class InteractiveShell {
 
     private static final Logger logger = LogManager.getLogger("InteractiveShell");
 
-    private InputReaderUtil inputReaderUtil;
+    private final InputReaderUtil inputReaderUtil;
     private ParkingSpotDAO parkingSpotDAO;
     private TicketDAO ticketDAO;
-    private ParkingService parkingService;
+    private final ParkingService parkingService;
 
     public InteractiveShell() {
         inputReaderUtil = new InputReaderUtil();

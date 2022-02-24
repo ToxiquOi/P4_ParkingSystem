@@ -5,7 +5,7 @@ public enum ParkingType {
     BIKE("BIKE"),
     UNKNOWN("UNKNOWN");
 
-    private String value;
+    private final String value;
 
     ParkingType(String value) {
         this.value = value;
