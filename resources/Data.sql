@@ -18,8 +18,8 @@ create table ticket
     PARKING_NUMBER     int         NOT NULL,
     VEHICLE_REG_NUMBER varchar(10) NOT NULL,
     PRICE              double,
-    IN_TIME            TIMESTAMP    NOT NULL,
-    OUT_TIME           TIMESTAMP,
+    IN_TIME            TIMESTAMP(3)    NOT NULL,
+    OUT_TIME           TIMESTAMP(3),
     FOREIGN KEY (PARKING_NUMBER)
         REFERENCES parking (PARKING_NUMBER)
 );
@@ -56,8 +56,8 @@ create table ticket
     PARKING_NUMBER     int         NOT NULL,
     VEHICLE_REG_NUMBER varchar(10) NOT NULL,
     PRICE              double,
-    IN_TIME            TIMESTAMP    NOT NULL,
-    OUT_TIME           TIMESTAMP,
+    IN_TIME            TIMESTAMP(3)    NOT NULL,
+    OUT_TIME           TIMESTAMP(3),
     FOREIGN KEY (PARKING_NUMBER)
         REFERENCES parking (PARKING_NUMBER)
 );
